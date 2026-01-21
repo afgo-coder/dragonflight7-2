@@ -29,10 +29,13 @@ public class Bullet : MonoBehaviour
         //trigger 충돌일경우 한번 실행
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            //이펙트 생성
+            //이펙트 생성 및 사운드출력
             GameObject go = Instantiate(effect,transform.position,Quaternion.identity);
             SoundManager.instance.SoundDie();
             Destroy(go,1);
+
+            //점수
+            Gamemanager.instance.AddScore(100);
 
             //미사일충돌 및 삭제
             Destroy(collision.gameObject);

@@ -1,0 +1,46 @@
+using UnityEngine;
+
+public class Bullet : MonoBehaviour
+{
+
+    public float moveSpeed = 1f;
+    public GameObject effect;
+
+    void Start()
+    {
+        
+    }
+
+    
+    void Update()
+    {
+        float distanceY = moveSpeed * Time.deltaTime;
+        transform.Translate(0, distanceY, 0);
+    }
+    //화면밖으로 나가면 호출되는 함수
+    private void OnBecameInvisible()
+    {
+        //미사일 지우기
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //trigger 충돌일경우 한번 실행
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            GameObject die = Instantiate(effect,transform.position,Quaternion.identity);
+            SoundManager.instance.SoundDie();
+            Destroy(die,1);
+
+            GameManager.instance.AddScore(100);
+
+            //적충돌 및 삭제
+            Destroy(collision.gameObject);
+
+            //자기자신 삭제
+            Destroy(gameObject);
+        }
+    }
+
+}
