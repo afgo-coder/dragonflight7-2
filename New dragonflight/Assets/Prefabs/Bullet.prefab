@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 741f2218ffb671e4c870e7499dfa3634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  moveSpeed: 1
+  moveSpeed: 5
   effect: {fileID: 8560391826305446499, guid: 74f30c53123150c40acb0f9949b6026a, type: 3}
 --- !u!50 &-1468689736593856423
 Rigidbody2D:
