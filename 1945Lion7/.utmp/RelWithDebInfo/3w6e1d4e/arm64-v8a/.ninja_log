@@ -1,0 +1,12 @@
+# ninja log v5
+309	866	7912717458368566	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	70b9123eb9cfe679
+869	1600	7912717463829945	C:/Users/ko990/Documents/GitHub/dragonflight7-2/1945Lion7/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3w6e1d4e/obj/arm64-v8a/libswappywrapper.so	8bcc62c4b493dab6
+104	3097	7912717480622323	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	727d3b03f15cd471
+189	3165	7912717481262903	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	eca4c0b5332ead7e
+48	3278	7912717482449999	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	725d6fc90ace5189
+25	3286	7912717482495082	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	9ff66b6c110ec7a1
+140	3409	7912717483812524	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	976c420639308392
+239	3507	7912717484777235	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	b0844f4cf97259d2
+75	3593	7912717485722804	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	b3f92273d77656ae
+2	3632	7912717486110430	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	34fc59fc1981d2c5
+3632	3781	7912717487663211	C:/Users/ko990/Documents/GitHub/dragonflight7-2/1945Lion7/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3w6e1d4e/obj/arm64-v8a/libgame.so	ae08db759f3a6258

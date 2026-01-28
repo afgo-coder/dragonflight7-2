@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -23,6 +24,8 @@ public class Player : MonoBehaviour
     bool canCharge = true;
     public float slowTimeScale = 0.2f;
     float normalFixedDeltaTime;
+    public DynamicJoystick djoystick;
+    public bool CanLazer = false;
 
     void Start()
     {
@@ -32,13 +35,15 @@ public class Player : MonoBehaviour
         // 초기 FixedDeltaTime 저장
         normalFixedDeltaTime = Time.fixedDeltaTime;
     }
-
     
+
     void Update()
     {
-        float moveX = moveSpeed * Time.deltaTime * Input.GetAxis("Horizontal");
-        float moveY = moveSpeed * Time.deltaTime * Input.GetAxis("Vertical");
+        //float moveX = moveSpeed * Time.deltaTime * Input.GetAxis("Horizontal");
+        //float moveY = moveSpeed * Time.deltaTime * Input.GetAxis("Vertical");
 
+        float moveX = moveSpeed * Time.unscaledDeltaTime * djoystick.Horizontal;
+        float moveY = moveSpeed * Time.unscaledDeltaTime * djoystick.Vertical;
         //-1 0 1
         // Left Shift 누르면 전체 시간 느리게 (플레이어 제외)
         if (Input.GetKey(KeyCode.LeftShift))
@@ -89,27 +94,67 @@ public class Player : MonoBehaviour
             //미사일생성
             Instantiate(bullet[power], pos.position, Quaternion.identity);
         }
-        else if (Input.GetKey(KeyCode.Space))
+        //else if (Input.GetKey(KeyCode.Space))
+        //{
+        //    // 충전 허용 상태에서만 게이지 증가 (게이지는 타임스케일의 영향을 받음)
+        //    if (canCharge)
+        //    {
+        //        gValue += Time.deltaTime;
+        //        Gage.fillAmount = gValue;
+        //        if (gValue >= 1)
+        //        {
+        //            GameObject go = Instantiate(lazer, pos.position, Quaternion.identity);
+        //            Destroy(go, 3);
+        //            gValue = 0;
+        //            // 충전 비활성화 및 쿨다운 코루틴 시작 (쿨다운은 시간 스케일 영향을 받음)
+        //            StartCoroutine(LazerCooldown());
+        //        }
+        //    }
+        //    else
+        //    {
+        //        // 쿨다운 중이면 게이지는 유지
+        //        Gage.fillAmount = gValue;
+        //    }
+        //}
+        //else
+        //{
+        //    gValue -= Time.deltaTime;
+
+        //    if (gValue <= 0)
+        //    {
+        //        gValue = 0;
+        //    }
+
+        //    //게이지바 UI표시
+        //    Gage.fillAmount = gValue;
+
+        //}
+        if (CanLazer)
         {
-            // 충전 허용 상태에서만 게이지 증가 (게이지는 타임스케일의 영향을 받음)
-            if (canCharge)
+          
+            if (Input.GetMouseButton(0))
             {
-                gValue += Time.deltaTime;
-                Gage.fillAmount = gValue;
-                if (gValue >= 1)
+                // 충전 허용 상태에서만 게이지 증가 (게이지는 타임스케일의 영향을 받음)
+                if (canCharge)
                 {
-                    GameObject go = Instantiate(lazer, pos.position, Quaternion.identity);
-                    Destroy(go, 3);
-                    gValue = 0;
-                    // 충전 비활성화 및 쿨다운 코루틴 시작 (쿨다운은 시간 스케일 영향을 받음)
-                    StartCoroutine(LazerCooldown());
+                    gValue += Time.deltaTime;
+                    Gage.fillAmount = gValue;
+                    if (gValue >= 1)
+                    {
+                        GameObject go = Instantiate(lazer, pos.position, Quaternion.identity);
+                        Destroy(go, 3);
+                        gValue = 0;
+                        // 충전 비활성화 및 쿨다운 코루틴 시작 (쿨다운은 시간 스케일 영향을 받음)
+                        StartCoroutine(LazerCooldown());
+                    }
+                }
+                else
+                {
+                    // 쿨다운 중이면 게이지는 유지
+                    Gage.fillAmount = gValue;
                 }
             }
-            else
-            {
-                // 쿨다운 중이면 게이지는 유지
-                Gage.fillAmount = gValue;
-            }
+
         }
         else
         {
@@ -143,6 +188,24 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(cooldownDuration);
         canCharge = true;
     }
+    public void Fire()
+    {
+        Instantiate(bullet[power], pos.position, Quaternion.identity);
+    }
+
+
+    public void LazerOn()
+    {
+        CanLazer = true;
+    }
+
+
+    public void LazerOff()
+    {
+        CanLazer = false;
+    }
+ 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Item"))
